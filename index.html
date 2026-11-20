@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOXTAGE 通話サポート 申し込み</title>
+<meta name="description" content="VOXTAGE Pro版の方向けの、Discord通話（画面共有のみ）で60分いっしょに設定する有料サポートです（2026年12月20日まで）。">
+<style>
+  /* 黒地に金の線画（月・太陽・星）。フォントはPCに入っている明朝を使う（外から読み込まない） */
+  :root { --bg:#0b0b0d; --card:rgba(18,17,15,.72); --gold:#c9a45c; --gold2:#e6cc8f; --goldDim:rgba(201,164,92,.38); --line:rgba(201,164,92,.28);
+    --text:#ece6d8; --sub:#a8a08f; --ng:#d98b7a;
+    --serif:"Yu Mincho","YuMincho","游明朝","Hiragino Mincho ProN","Noto Serif JP","MS PMincho",serif; }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body { margin:0; color:var(--text); font:16px/1.9 "Yu Gothic UI","Meiryo",system-ui,sans-serif; -webkit-text-size-adjust:100%;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(1px 1px at 12% 8%, rgba(230,204,143,.7) 50%, transparent 51%),
+      radial-gradient(1px 1px at 78% 14%, rgba(230,204,143,.5) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 42% 22%, rgba(230,204,143,.6) 50%, transparent 51%),
+      radial-gradient(1px 1px at 88% 36%, rgba(230,204,143,.45) 50%, transparent 51%),
+      radial-gradient(1px 1px at 6% 48%, rgba(230,204,143,.5) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 64% 58%, rgba(230,204,143,.4) 50%, transparent 51%),
+      radial-gradient(1px 1px at 24% 72%, rgba(230,204,143,.5) 50%, transparent 51%),
+      radial-gradient(1px 1px at 94% 82%, rgba(230,204,143,.45) 50%, transparent 51%),
+      radial-gradient(1px 1px at 52% 92%, rgba(230,204,143,.5) 50%, transparent 51%);
+    background-size:420px 520px; }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 72px; }
+  a { color:var(--gold2); }
+
+  /* 見出しの紋章 */
+  .hero { text-align:center; padding:8px 0 4px; }
+  .hero svg { display:block; width:min(300px,78vw); height:auto; margin:0 auto; }
+  .eyebrow { font-family:var(--serif); letter-spacing:.42em; font-size:.78rem; color:var(--gold); margin:0 0 4px; text-indent:.42em; }
+  h1 { font-family:var(--serif); font-weight:500; font-size:2rem; letter-spacing:.24em; text-indent:.24em; line-height:1.4; margin:6px 0 2px; color:var(--gold2); }
+  h1 small { display:block; font-size:.82rem; letter-spacing:.38em; text-indent:.38em; color:var(--gold); margin-top:4px; }
+  .lead { color:var(--sub); text-align:center; max-width:30em; margin:14px auto 8px; }
+  .rule { display:flex; align-items:center; gap:12px; color:var(--gold); justify-content:center; margin:18px auto; max-width:420px; font-size:.8rem; letter-spacing:.4em; }
+  .rule::before, .rule::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--goldDim),transparent); }
+
+  h2 { font-family:var(--serif); font-weight:500; font-size:1.18rem; letter-spacing:.14em; color:var(--gold2); margin:0 0 14px; display:flex; align-items:center; gap:10px; }
+  h2::before { content:"✦"; color:var(--gold); font-size:.8rem; }
+  h2::after { content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--goldDim),transparent); }
+  p { margin:0 0 12px; }
+
+  /* カード：金の細い二重線の枠 */
+  section, .box { position:relative; background:var(--card); border:1px solid var(--line); border-radius:2px; padding:24px 20px; margin:22px 0; }
+  section::before, .box::before { content:""; position:absolute; inset:5px; border:1px solid rgba(201,164,92,.12); pointer-events:none; }
+  .warn { border-color:var(--goldDim); }
+  .warn strong { color:var(--gold2); }
+
+  /* サポートする人（二十七） */
+  .who { display:flex; align-items:center; gap:18px; }
+  .who img { flex:none; width:82px; height:auto; filter:drop-shadow(0 0 10px rgba(201,164,92,.25)); }
+  .who p { margin:0; }
+  .who-role { color:var(--sub); font-size:.8rem; letter-spacing:.2em; }
+  .who-name { font-family:var(--serif); font-weight:500; font-size:1.9rem; letter-spacing:.18em; line-height:1.3; color:var(--gold2); }
+  .who-dev { display:inline-block; margin:4px 0 6px !important; padding:1px 10px; border:1px solid var(--gold); color:var(--gold2); font-family:var(--serif); font-size:.82rem; letter-spacing:.12em; }
+  .who-job { font-family:var(--serif); font-size:.98rem; color:var(--text); }
+  .who-job span { white-space:nowrap; }
+  ul.who-cv { list-style:none; padding:0; margin:6px 0 0; font-size:.88rem; color:var(--sub); line-height:1.7; }
+  ul.who-cv li { margin:0; }
+  ul.who-cv li::before { content:"✦ "; color:var(--gold); font-size:.7rem; }
+
+  /* 料金 */
+  .price { text-align:center; }
+  .price h2 { justify-content:center; }
+  .price h2::after { display:none; }
+  .price h2::before { content:"☽"; }
+  .price .now { font-family:var(--serif); font-size:2.8rem; font-weight:500; letter-spacing:.06em; color:var(--gold2); line-height:1.3; }
+  .price .until { color:var(--sub); font-size:.9rem; }
+  .price .opt { margin-top:18px; padding-top:18px; border-top:1px solid var(--line); }
+  .price .opt b { font-family:var(--serif); font-weight:500; color:var(--gold2); font-size:1.5rem; }
+  .closed { color:var(--gold2); margin:12px 0 0; }
+  .closed[hidden] { display:none; }
+
+  /* ボタン */
+  .btn { display:block; width:100%; text-align:center; background:linear-gradient(180deg,#e2c582,#b48c45); color:#16120a; font-family:var(--serif); font-weight:700; letter-spacing:.14em; font-size:1.1rem; padding:16px; border-radius:2px; text-decoration:none; border:1px solid var(--gold2); margin-top:18px; box-shadow:0 0 0 4px rgba(201,164,92,.08); }
+  .btn:hover { filter:brightness(1.08); }
+  .btn.sub { background:transparent; color:var(--gold2); border:1px solid var(--goldDim); font-size:1rem; padding:12px; box-shadow:none; }
+  .btn[aria-disabled="true"] { background:transparent; color:#776f60; border:1px dashed rgba(201,164,92,.25); box-shadow:none; pointer-events:none; }
+  .btn[hidden] { display:none; }
+
+  /* 流れ：金の輪の番号 */
+  ol.flow { counter-reset:s; list-style:none; padding:0; margin:0; }
+  ol.flow li { counter-increment:s; position:relative; padding:0 0 16px 50px; }
+  ol.flow li::before { content:counter(s); position:absolute; left:0; top:0; width:32px; height:32px; border-radius:50%; border:1px solid var(--gold); box-shadow:0 0 0 3px var(--bg), 0 0 0 4px var(--goldDim); color:var(--gold2); font-family:var(--serif); text-align:center; line-height:30px; }
+  ol.flow li:not(:last-child)::after { content:""; position:absolute; left:16px; top:38px; bottom:4px; width:1px; background:var(--line); }
+  ol.flow strong { color:var(--gold2); font-weight:600; }
+
+  ul { margin:0; padding-left:1.4em; }
+  li { margin-bottom:6px; }
+  .yes li::marker { color:var(--gold); content:"✦ "; }
+  .no li::marker { color:var(--ng); content:"✕ "; }
+  strong { color:var(--text); }
+
+  /* 表 */
+  table { width:100%; border-collapse:collapse; font-size:.93rem; }
+  th, td { border-bottom:1px solid var(--line); padding:12px 10px; vertical-align:top; text-align:left; }
+  th { width:34%; color:var(--gold); font-family:var(--serif); font-weight:500; letter-spacing:.04em; }
+  small, .note { color:var(--sub); font-size:.88rem; }
+  td a { word-break:break-all; }
+  /* 特商法：たたんでおく */
+  details.legal { border:1px solid var(--line); border-radius:2px; margin:22px 0; background:var(--card); }
+  details.legal summary { cursor:pointer; list-style:none; padding:14px 18px; font-family:var(--serif); letter-spacing:.1em; color:var(--gold); font-size:.95rem; display:flex; align-items:center; gap:10px; }
+  details.legal summary::-webkit-details-marker { display:none; }
+  details.legal summary::after { content:"＋"; margin-left:auto; color:var(--gold); }
+  details.legal[open] summary::after { content:"－"; }
+  details.legal[open] summary { border-bottom:1px solid var(--line); }
+  details.legal table, details.legal > p { margin:0; padding:0 18px; }
+  details.legal table { padding:0; width:calc(100% - 36px); margin:6px 18px 0; }
+  details.legal > p { padding:12px 18px 16px; }
+  .foot { text-align:center; font-family:var(--serif); letter-spacing:.5em; text-indent:.5em; color:var(--gold); font-size:.8rem; margin-top:36px; }
+  @media (max-width:520px) {
+    h1 { font-size:1.65rem; }
+    .price .now { font-size:2.4rem; }
+    th, td { display:block; width:100%; } th { border-bottom:0; padding-bottom:0; } td { padding-top:4px; }
+  }
+
+  /* 日本語のみ：いちばん目立つ表示 */
+  .ja-only { text-align:center; border:1px solid var(--gold); background:rgba(201,164,92,.10); padding:18px 16px; margin:18px 0 6px; position:relative; }
+  .ja-only::before { content:""; position:absolute; inset:5px; border:1px solid rgba(201,164,92,.25); pointer-events:none; }
+  .ja-only b { display:block; font-family:var(--serif); font-weight:600; font-size:1.7rem; letter-spacing:.2em; text-indent:.2em; color:var(--gold2); line-height:1.4; }
+  .ja-only span { display:block; color:var(--text); font-size:.95rem; margin-top:4px; }
+  .ja-only small { display:block; margin-top:2px; letter-spacing:.06em; }
+
+  /* 申し込みの欄 */
+  .form fieldset { border:0; padding:0; margin:0 0 26px; min-width:0; }
+  .form fieldset[disabled] { opacity:.42; }
+  .form legend { font-family:var(--serif); color:var(--gold2); font-size:1.05rem; letter-spacing:.08em; padding:0; margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+  .form legend i { font-style:normal; display:inline-block; width:28px; height:28px; border-radius:50%; border:1px solid var(--gold); color:var(--gold2); text-align:center; line-height:26px; font-size:.9rem; flex:none; }
+  .form label.f { display:block; margin:12px 0 4px; color:var(--sub); font-size:.9rem; }
+  .form label.f em { font-style:normal; color:var(--gold); font-size:.78rem; margin-left:6px; }
+  .form input[type=text], .form select, .form textarea { width:100%; background:rgba(0,0,0,.35); color:var(--text); border:1px solid var(--goldDim); border-radius:2px; padding:10px 12px; font:inherit; font-size:1rem; }
+  .form textarea { min-height:110px; resize:vertical; line-height:1.6; }
+  .form input:focus, .form select:focus, .form textarea:focus { outline:2px solid var(--gold); outline-offset:1px; }
+  .form .row { display:flex; gap:10px; align-items:stretch; flex-wrap:wrap; }
+  .form .row > input { flex:1 1 220px; }
+  .form button { font:inherit; cursor:pointer; }
+  .form button.btn { margin-top:12px; }
+  .form button.btn:disabled { background:transparent; color:#776f60; border:1px dashed rgba(201,164,92,.25); box-shadow:none; cursor:default; }
+  .form .inline { width:auto; display:inline-block; margin-top:0; padding:10px 18px; font-size:1rem; }
+  .ok { color:#a9d3a0; }
+  .ng { color:var(--ng); }
+  .msg { margin:8px 0 0; min-height:1.2em; }
+  .msg:empty { display:none; }
+  ul.consents { list-style:none; padding:0; margin:0; }
+  ul.consents li { margin:0 0 10px; }
+  ul.consents label { display:flex; gap:12px; align-items:flex-start; cursor:pointer; padding:10px 12px; border:1px solid var(--line); background:rgba(0,0,0,.22); }
+  ul.consents input { flex:none; width:20px; height:20px; margin-top:4px; accent-color:var(--gold); }
+  .totalline { font-family:var(--serif); color:var(--gold2); font-size:1.3rem; margin-top:10px; }
+  .done { border-color:var(--gold); text-align:center; }
+  .done[hidden], .form[hidden], [data-show][hidden] { display:none; }
+  .done .big { font-family:var(--serif); color:var(--gold2); font-size:1.4rem; letter-spacing:.1em; }
+  .mono { font-family:Consolas,"Courier New",monospace; letter-spacing:.04em; }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <!-- 紋章：二重の円・放射線・三日月・四芒星（金の線画） -->
+    <svg viewBox="0 0 300 220" aria-hidden="true" fill="none" stroke="#c9a45c" stroke-linecap="round">
+      <line x1="10" y1="110" x2="80" y2="110" stroke-width=".8" opacity=".7"/>
+      <line x1="220" y1="110" x2="290" y2="110" stroke-width=".8" opacity=".7"/>
+      <circle cx="10" cy="110" r="2.5" fill="#c9a45c" stroke="none"/><circle cx="290" cy="110" r="2.5" fill="#c9a45c" stroke="none"/>
+      <circle cx="150" cy="110" r="92" stroke-width=".6" opacity=".45"/>
+      <circle cx="150" cy="110" r="70" stroke-width=".8" opacity=".8"/>
+      <circle cx="150" cy="110" r="66" stroke-width=".5" opacity=".5"/>
+      <g stroke-width=".6" opacity=".6">
+        <line x1="150" y1="18" x2="150" y2="44"/><line x1="150" y1="176" x2="150" y2="202"/>
+        <line x1="58" y1="110" x2="84" y2="110"/><line x1="216" y1="110" x2="242" y2="110"/>
+        <line x1="85" y1="45" x2="103" y2="63"/><line x1="215" y1="45" x2="197" y2="63"/>
+        <line x1="85" y1="175" x2="103" y2="157"/><line x1="215" y1="175" x2="197" y2="157"/>
+      </g>
+      <g stroke-width=".9">
+        <circle cx="150" cy="18" r="4" fill="#0b0b0d"/><circle cx="150" cy="202" r="4" fill="#0b0b0d"/>
+        <circle cx="58" cy="110" r="4" fill="#0b0b0d"/><circle cx="242" cy="110" r="4" fill="#0b0b0d"/>
+      </g>
+      <path d="M150 18 a4 4 0 0 1 0 8 z M150 194 a4 4 0 0 0 0 8 z" fill="#c9a45c" stroke="none"/>
+      <!-- 三日月 -->
+      <path d="M128 64 a48 48 0 1 0 0 92 a40 40 0 1 1 0 -92 z" fill="#c9a45c" fill-opacity=".9" stroke="none"/>
+      <!-- 四芒星 -->
+      <path d="M168 78 L172 104 L196 110 L172 116 L168 142 L164 116 L140 110 L164 104 Z" fill="#e6cc8f" stroke="none"/>
+      <g fill="#e6cc8f" stroke="none" opacity=".8">
+        <circle cx="200" cy="72" r="1.6"/><circle cx="208" cy="150" r="1.2"/><circle cx="112" cy="54" r="1.2"/><circle cx="96" cy="160" r="1.6"/>
+      </g>
+    </svg>
+    <p class="eyebrow">VOXTAGE · CALL SUPPORT</p>
+    <h1>通話サポート<small><span data-v="deadline-short">12月20日</span>まで</small></h1>
+  </header>
+  <div class="ja-only" role="note" lang="ja">
+    <b>日本語のみ対応</b>
+    <span>通話・チャット・ご案内は、すべて日本語で行います。通訳・翻訳には対応していません。</span>
+    <small lang="en">This support is available in Japanese only.</small>
+  </div>
+  <p class="lead">Discordの通話で、お客様のPCの画面を見ながら、VOXTAGEの設定を<span data-v="minutes">60</span>分いっしょに進めます。</p>
+  <div class="rule" aria-hidden="true">☾ ✦ ☽</div>
+
+  <section class="who" aria-label="サポートする人">
+    <img src="nijushichi.png" width="82" height="140" alt="二十七のミニキャラ">
+    <div>
+      <p class="who-role">サポートするのは</p>
+      <p class="who-name">二十七</p>
+      <p class="who-dev">VOXTAGE 開発者</p>
+      <p class="who-job"><span>作詞・作編曲家／</span><span>ミックスエンジニア</span></p>
+      <ul class="who-cv">
+        <li>別名義でミリオンセラー楽曲に複数参加</li>
+        <li>音楽賞受賞作品の制作にも参加</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="box warn">
+    <p><strong>ご注意（先にお読みください）</strong></p>
+    <ul>
+      <li><strong>VOXTAGE Pro版をお使いの方のみ</strong>お申し込みいただけます。</li>
+      <li>受付は<strong><span data-v="deadline">2026年12月20日</span>まで</strong>の限定です。</li>
+      <li>通話は<strong>画面共有のみ</strong>です。お客様のPCを<strong>遠隔操作することはありません</strong>。</li>
+      <li>通話の<strong>録画・録音・保存はしません</strong>。</li>
+    </ul>
+  </div>
+
+  <section class="price" aria-label="料金">
+    <h2>料金（税込）</h2>
+    <div class="now" data-v="call-price">¥1,800</div>
+    <div class="until">通話<span data-v="minutes">60</span>分・1回（<span data-v="deadline">2026年12月20日</span>までの受付）</div>
+    <div class="opt">
+      <div>オプション：<strong>専用プリセット作成</strong>　1つ <b data-v="preset-price">¥500</b>（いまだけ価格）</div>
+      <div class="until">お客様の声と環境に合わせて、しっかり作ります。1回の申し込みで<span data-v="preset-max">3</span>つまで。通話のあと<span data-v="days">3</span>日以内にDiscordでお渡しします。</div>
+    </div>
+    <a id="apply" class="btn" href="#form">申し込む</a>
+    <p id="closed" class="closed" hidden>お支払い済みの方の通話と、プリセットのお渡しは、そのまま行います。</p>
+    <p class="note" style="margin-top:10px">お支払いは、下の申し込みの欄で内容を送ったあと、Stripe の決済ページで行います。クレジットカードなどが使えます。</p>
+  </section>
+
+  <section>
+    <h2>どんなサポート？</h2>
+    <p>マイク・オーディオインターフェース・配信ソフトの音の流れの設定、エフェクトの調整、プリセット（音の設定のセット）の使い方などを、画面共有を見ながらいっしょに行います。<span data-v="minutes">60</span>分の中で、お客様の環境に合わせて進めます。</p>
+    <p>オプションの<strong>専用プリセット作成</strong>を頼んだ方には、通話で聞いた声と環境に合わせて、プリセットをしっかり作ります。でき上がったものは、通話のあと<strong><span data-v="days">3</span>日以内</strong>にDiscordでお渡しします。</p>
+  </section>
+
+  <section>
+    <h2>お申し込みの流れ</h2>
+    <ol class="flow">
+      <li><strong>Discordでログイン</strong><br>下の申し込みの欄で、Discordの公式のログインをします。サポート用のDiscordサーバーに、自動で参加します。</li>
+      <li><strong>Pro版の確認・日時と内容・同意</strong><br>Pro版のコードを確かめ、希望の日時（第1・第2希望）、専用プリセットの数（<span data-v="preset-max">3</span>つまで）、お使いの環境と困りごとを入れて、同意の項目にチェックします。<br><small>通話の時間帯は 15:00〜23:00 です。</small></li>
+      <li><strong>支払い</strong><br>内容を送ると、Stripeの決済ページに進みます。</li>
+      <li><strong>日時の確定</strong><br>こちらで日時を確かめて確定し、Discordでお知らせします。<br><small>同じ日時をほかの方も希望していることがあります。そのときは第2希望の日時か、ご相談のうえ別の日時にします。</small></li>
+      <li><strong>Discordで通話</strong><br>決まった時間にDiscordで<span data-v="minutes">60</span>分通話します。画面共有のみで行います。</li>
+      <li><strong>プリセットを受け取る（頼んだ方）</strong><br>通話のあと<span data-v="days">3</span>日以内に、専用プリセットをDiscordでお渡しします。</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>含まれること／含まれないこと</h2>
+    <p><strong>含まれること</strong></p>
+    <ul class="yes">
+      <li>Discordでの通話（<span data-v="minutes">60</span>分）と、画面共有を見ながらの設定サポート</li>
+      <li>お使いの環境でVOXTAGEを使える状態にするための案内</li>
+      <li>オプションを頼んだ方：専用プリセットの作成（1つ <span data-v="preset-price">¥500</span>・<span data-v="preset-max">3</span>つまで）と、通話のあと<span data-v="days">3</span>日以内のお渡し（Discordで）</li>
+    </ul>
+    <p style="margin-top:14px"><strong>含まれないこと</strong></p>
+    <ul class="no">
+      <li>お客様のPCの遠隔操作（すべてお客様ご自身の操作で進めます）</li>
+      <li>通話の録画・録音・保存</li>
+      <li>Pro版以外の方へのサポート、VOXTAGE以外のソフト・機材の故障修理や使い方全般</li>
+      <li>配信の結果（再生数・音質の好み・遅延ゼロなど）の保証</li>
+    </ul>
+    <p class="note" style="margin-top:14px">作成したプリセットはお客様ご自身専用です（再配布・転売はできません）。</p>
+  </section>
+
+  <section>
+    <h2>キャンセルと返金</h2>
+    <!-- この条件は docs/support/規約に足す案.md と同じ内容にそろえること -->
+    <ul>
+      <li>予約した日時の<strong>3日前まで</strong>：日程の変更は<strong>1回だけ無料</strong>です。キャンセルする場合は<strong>全額を返金</strong>します。</li>
+      <li>予約した日時の3日前より後のキャンセル、および連絡なしでご参加いただけなかった場合：<strong>返金できません</strong>。</li>
+      <li>こちらの都合で通話が中止になった場合：日程を変更するか、全額を返金します。</li>
+      <li>専用プリセット（オプション）は、通話のあと3日以内にお渡しします。お使いの環境によっては作れない場合があり、<strong>作れなかった分は1つ ¥500 を返金</strong>します（通話の料金は返金しません）。</li>
+      <li>専用チャンネルは、<strong>通話が終わった時刻から数えて7日後に削除</strong>されます。必要なファイルは、それまでに保存してください。</li>
+      <li>返金は、お支払いに使ったカードなどへ、Stripeを通じて行います。反映までに数日〜数週間かかることがあります。</li>
+    </ul>
+    <p class="note" style="margin-top:10px">キャンセル・返金のご連絡は、いちばん下の「特定商取引法に基づく表記」（押すと開きます）のメールアドレスへお願いします。</p>
+  </section>
+
+  <!-- 申し込みの欄：form.js が動かす。サーバーから来た文字は textContent で入れる -->
+  <section id="form-wrap" aria-labelledby="form-title">
+    <h2 id="form-title">お申し込み</h2>
+    <div class="ja-only" role="note"><b>日本語のみ対応</b><span>日本語で会話できる方だけ、お申し込みください。</span></div>
+
+    <!-- 支払いから戻ったとき -->
+    <div id="done" class="box done" hidden>
+      <p class="big" id="done-title"></p>
+      <p id="done-text"></p>
+      <p class="note">依頼ID：<span class="mono" id="done-id"></span>（お問い合わせのときにお伝えください）</p>
+      <button type="button" class="btn sub" id="done-pay" hidden>お支払いへ進む</button>
+    </div>
+
+    <p id="form-off" class="closed" hidden></p>
+    <form id="form" class="form" novalidate hidden>
+      <fieldset id="st-login">
+        <legend><i>1</i>Discordでログイン</legend>
+        <p class="note">Discordの公式のログインを使います。受け取るのは、お客様のDiscordのIDと名前だけです（取る権限：「アカウントを見る」「サーバーに参加させる」）。ログインすると、サポート用のDiscordサーバーに自動で参加します（申し込みを送ったとき）。</p>
+        <div data-show="out"><button type="button" class="btn" id="login">Discordでログイン</button>
+          <button type="button" class="btn sub" id="test-login" hidden>テスト用のログイン（試し用・Discordなし）</button></div>
+        <div data-show="in" hidden><p class="ok">ログイン中：<b id="who"></b></p><button type="button" class="btn sub inline" id="logout">別のアカウントにする</button></div>
+        <p class="msg" id="login-msg" role="status"></p>
+      </fieldset>
+
+      <fieldset id="st-pro" disabled>
+        <legend><i>2</i>Pro版の確認</legend>
+        <p class="note">VOXTAGE Pro版のコードを入れてください（アップグレードした方は、アップグレードのコード）。コードは確かめるだけで保存しません。記録に残すのは下4桁だけです。</p>
+        <div class="row"><input type="text" id="code" autocomplete="off" spellcheck="false" placeholder="VXP-XXXX-XXXX-XXXX" aria-label="Pro版のコード" maxlength="40">
+          <button type="button" class="btn inline" id="check">確かめる</button></div>
+        <p class="msg" id="pro-msg" role="status"></p>
+      </fieldset>
+
+      <fieldset id="st-detail" disabled>
+        <legend><i>3</i>希望の日時と内容</legend>
+        <label class="f" for="first">第1希望の日時<em>必須</em></label>
+        <select id="first"><option value="">日時を読み込み中…</option></select>
+        <label class="f" for="second">第2希望の日時<em>任意</em></label>
+        <select id="second"><option value="">なし</option></select>
+        <p class="note" id="slot-note">日時はこちらで確かめて確定し、Discordでお知らせします。表示は日本時間です。</p>
+
+        <label class="f" for="presets">専用プリセットの数（1つ <span data-v="preset-price">¥500</span>）</label>
+        <select id="presets"></select>
+        <p class="totalline">合計 <span id="total">¥1,800</span>（税込）</p>
+
+        <label class="f" for="win">Windows<em>必須</em></label>
+        <select id="win"><option value="">選んでください</option><option>Windows 11</option><option>Windows 10</option><option>その他・わからない</option></select>
+        <label class="f" for="mic">マイク<em>必須</em></label>
+        <input type="text" id="mic" maxlength="100" placeholder="例：AT2020（USB）／わからない">
+        <label class="f" for="gear">機材（オーディオインターフェースなど）<em>任意</em></label>
+        <input type="text" id="gear" maxlength="200" placeholder="例：Yamaha AG03MK2">
+        <label class="f" for="app">配信ソフト<em>必須</em></label>
+        <input type="text" id="app" maxlength="100" placeholder="例：OBS Studio／わからない">
+        <label class="f" for="trouble">困りごと・やりたいこと<em>必須</em></label>
+        <textarea id="trouble" maxlength="2000" placeholder="例：配信で声が小さい。リバーブをかけたい。"></textarea>
+        <label class="f" for="diag">診断のコピー<em>任意（あると話が早いです）</em></label>
+        <textarea id="diag" placeholder="アプリの「⚙設定 → サポート」のボタンを押すと、診断がコピーされます。ここに貼り付けてください。"></textarea>
+      </fieldset>
+
+      <fieldset id="st-consent" disabled>
+        <legend><i>4</i>同意（すべて必須）</legend>
+        <ul class="consents" id="consents"></ul>
+        <p class="note" id="terms-note">利用規約は、アプリの「⚙設定 → 利用規約」で読めます。</p>
+      </fieldset>
+
+      <fieldset id="st-send" disabled>
+        <legend><i>5</i>送って、支払いへ</legend>
+        <p class="note">送ると、Stripeの決済ページに進みます。お支払いが終わると、このページに戻ります。</p>
+        <button type="submit" class="btn" id="send">内容を送って、支払いへ進む</button>
+        <p class="msg" id="send-msg" role="status"></p>
+        <button type="button" class="btn sub" id="pay-old" hidden>前の依頼のお支払いへ進む</button>
+      </fieldset>
+    </form>
+  </section>
+
+  <!-- 特商法の表示：ふだんは閉じておき、押すと開く（見出しは常に見える＝見つけやすい場所に置く） -->
+  <details class="legal">
+    <summary>特定商取引法に基づく表記</summary>
+    <table id="tokushoho">
+      <tr><th>販売業者（氏名または名称）</th><td>請求があれば、遅滞なく開示します。下の連絡先のメールアドレスまでご連絡ください。</td></tr>
+      <tr><th>運営統括責任者</th><td>請求があれば、遅滞なく開示します。下の連絡先のメールアドレスまでご連絡ください。</td></tr>
+      <tr><th>所在地</th><td>請求があれば、遅滞なく開示します。下の連絡先のメールアドレスまでご連絡ください。</td></tr>
+      <tr><th>電話番号</th><td>請求があれば、遅滞なく開示します。下の連絡先のメールアドレスまでご連絡ください。</td></tr>
+      <tr><th>連絡先（メールアドレス）</th><td id="contact-email">準備中</td></tr>
+      <tr><th>サービス名</th><td>VOXTAGE 通話サポート（Discord通話<span data-v="minutes">60</span>分・画面共有のみ）</td></tr>
+      <tr><th>販売価格</th><td id="price-table">通話60分 ¥1,800（税込）／オプション：専用プリセット作成 1つ ¥500（税込・いまだけ価格・1回の申し込みで3つまで）</td></tr>
+      <tr><th>商品代金以外の必要料金</th><td>ありません。（インターネット接続・Discordの利用にかかる通信料はお客様のご負担です。）</td></tr>
+      <tr><th>支払い方法</th><td>Stripeの決済ページでのお支払い（クレジットカードなど、決済ページに表示される方法）</td></tr>
+      <tr><th>支払い時期</th><td>お申し込み時（決済ページでの支払い完了時）</td></tr>
+      <tr><th>申込みの期間</th><td><span data-v="deadline">2026年12月20日</span>まで</td></tr>
+      <tr><th>サービスの提供時期</th><td>通話：お申し込みのときに選んだ希望の日時から、こちらで確定してDiscordでお知らせする日時（15:00〜23:00の間）。専用プリセット（頼んだ方）：通話のあと<span data-v="days">3</span>日以内にDiscordでお渡し</td></tr>
+      <tr><th>キャンセル・返金</th><td>上の「キャンセルと返金」のとおりです。予約日時の3日前までは、日程変更（1回無料）またはキャンセル（全額返金）ができます。3日前より後のキャンセルと、連絡なしの欠席は返金できません。専用プリセットが作れなかったときは、その分（1つ ¥500）を返金します。</td></tr>
+      <tr><th>申込みの対象</th><td>VOXTAGE Pro版をお使いの方のみ</td></tr>
+      <tr><th>動作環境</th><td>Windows 11、Discordが使えるインターネット環境</td></tr>
+    </table>
+    <p class="note" style="margin-top:10px">上記の項目のお問い合わせは、メールの件名を「開示請求」にして、お送りください。遅滞なく、メールでお返事します。</p>
+  </details>
+
+  <div class="rule" aria-hidden="true">✦</div>
+  <p class="foot">© VOXTAGE</p>
+</main>
+
+<script src="config.js"></script>
+<script src="page.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.SUPPORT_CONFIG || {}, P = window.SUPPORT_PAGE;
+  var apply = document.getElementById("apply");
+  if (!P) { apply.textContent = "申し込む（準備中）"; apply.removeAttribute("href"); return; }   // page.js が読めないときは押せないまま
+
+  // 数字と日付：config.js の値を textContent で入れる（利用者の入力は入らない）
+  var v = P.values(C), m = /^\d{4}-(\d{2})-(\d{2})$/.exec(String(C.SUPPORT_DEADLINE || ""));
+  var put = { "minutes": String(v.minutes), "call-price": P.yen(v.callPrice), "preset-price": P.yen(v.presetPrice),
+    "preset-max": String(v.presetMax), "days": String(v.days), "deadline": v.deadline, "deadline-short": m ? Number(m[1]) + "月" + Number(m[2]) + "日" : "" };
+  var els = document.querySelectorAll("[data-v]");
+  for (var i = 0; i < els.length; i++) { var t = put[els[i].getAttribute("data-v")]; if (t) els[i].textContent = t; }
+  document.getElementById("price-table").textContent = P.priceText(C);
+
+  // 連絡先メール：空なら「準備中」のまま（表の行は隠さない）
+  var email = String(C.CONTACT_EMAIL || "").trim();
+  if (/^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(email)) {
+    var cell = document.getElementById("contact-email"), a = document.createElement("a");
+    a.href = "mailto:" + email; a.textContent = email; cell.textContent = ""; cell.appendChild(a);
+  }
+
+  // 「申し込む」ボタンと受付終了の表示は form.js が決める（受付のサーバーの期限も見る）
+})();
+</script>
+<script src="form.js"></script>
+</body>
+</html>
