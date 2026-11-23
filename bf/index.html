@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOXTAGE Black Friday</title>
+<meta name="robots" content="noindex">
+<style>
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:#000;color:#f3e7c4;font:400 15px/1.8 "Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;text-align:center;padding:24px 16px;box-sizing:border-box}
+h1{margin:0 0 8px;font:600 34px/1.1 Georgia,serif;letter-spacing:.06em;background:linear-gradient(180deg,#fff1bf,#e2b84a 50%,#9c6f1c);-webkit-background-clip:text;background-clip:text;color:transparent}
+a{color:#e2b84a}
+</style></head><body><main>
+<h1>BLACK FRIDAY</h1>
+<p id="msg">プレゼントページを開いています…</p>
+</main><script>
+// ブラックフライデーのプレゼントページ（Google Apps Script のウェブアプリ）への近道。
+// 案内 PDF・BOOTH の説明・X の告知には、この短い URL（…/voxtage-support/bf/）を載せる。
+// プレゼントページを公開したら、下の TARGET にその URL（https://script.google.com/macros/s/…/exec）を入れる。
+const TARGET = '';
+if (/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(TARGET)) location.replace(TARGET);
+else document.getElementById('msg').innerHTML = 'プレゼントページは 11/25（日本時間）から開きます。<br>もう少しお待ちください。<br><br><a href="https://vagency.booth.pm/items/9057393">VOXTAGE（BOOTH）</a>';
+</script></body></html>
