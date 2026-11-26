@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOXTAGE CUE の入れ方</title>
+<meta name="description" content="YouTube のカラオケのキーとテンポを変え、VOXTAGE のセトリから操作できる Chrome の拡張機能「VOXTAGE CUE」の入れ方とつなぎ方。">
+<style>
+  /* 通話サポートのページ（docs/support/index.html）と同じ、黒地に金。フォントは PC に入っているものを使う（外から読み込まない） */
+  :root { --bg:#0b0b0d; --card:rgba(18,17,15,.72); --gold:#c9a45c; --gold2:#e6cc8f; --line:rgba(201,164,92,.28);
+    --text:#ece6d8; --sub:#a8a08f;
+    --serif:"Yu Mincho","YuMincho","游明朝","Hiragino Mincho ProN","Noto Serif JP","MS PMincho",serif; }
+  * { box-sizing:border-box; }
+  html { background:var(--bg); }
+  body { margin:0; color:var(--text); font:16px/1.9 "Yu Gothic UI","Meiryo",system-ui,sans-serif; -webkit-text-size-adjust:100%; background:var(--bg); }
+  main { max-width:720px; margin:0 auto; padding:24px 16px 72px; }
+  a { color:var(--gold2); }
+  h1 { font-family:var(--serif); font-weight:600; font-size:30px; line-height:1.4; color:var(--gold2); margin:24px 0 4px; letter-spacing:.04em; }
+  .lead { color:var(--sub); margin:0 0 24px; }
+  h2 { font-family:var(--serif); font-weight:600; font-size:20px; color:var(--gold2); margin:0 0 8px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 20px 16px; margin:16px 0; }
+  ol, ul { padding-left:1.4em; margin:6px 0; }
+  li { margin:4px 0; }
+  .get { display:block; text-align:center; padding:14px 16px; border-radius:12px; border:1px solid var(--gold); color:#111; background:var(--gold2);
+    font-weight:700; text-decoration:none; font-size:17px; }
+  .soon { text-align:center; padding:14px 16px; border-radius:12px; border:1px dashed var(--gold); color:var(--gold2); font-weight:700; }
+  .note { color:var(--sub); font-size:14px; }
+  .lang { text-align:right; font-size:14px; margin:0; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+<main>
+<p class="lang"><a href="#" id="toggle">English</a></p>
+
+<!-- ===== 日本語 ===== -->
+<div id="ja">
+<h1>VOXTAGE CUE の入れ方</h1>
+<p class="lead">YouTube のカラオケを、VOXTAGE のセトリから操作する Chrome の拡張機能（無料）</p>
+
+<section>
+  <h2>できること</h2>
+  <ul>
+    <li>YouTube の動画の下に小さなバーが出て、キー（−12〜+12）とテンポ（0.50〜1.50 倍）をボタンで変えられます。動画ごとに覚えます。</li>
+    <li>VOXTAGE（1.0.7 以降）とつなぐと、セトリに YouTube の URL を入れた曲を、VOXTAGE の ▶・停止・キーで操作できます。</li>
+    <li>曲を前もって聴いて、キーの移り変わりと BPM を調べ、ハモリ・エコーを曲に合わせます。</li>
+  </ul>
+</section>
+
+<section>
+  <h2>1. 入れる</h2>
+  <a class="get js-store" href="#" hidden>Chrome ウェブストアで VOXTAGE CUE を入れる</a>
+  <p class="soon js-soon">近日、Chrome ウェブストアで公開します（ただいま審査中です）</p>
+  <ol>
+    <li>Chrome（または Brave・Edge）で、上のボタンからストアのページを開きます</li>
+    <li>「Chrome に追加」を押し、出てきた窓で「拡張機能を追加」を押します</li>
+    <li>右上のパズルの形のボタンを押し、VOXTAGE CUE の横のピンを押すと、いつでも押せる所に出ます</li>
+  </ol>
+</section>
+
+<section>
+  <h2>2. VOXTAGE とつなぐ</h2>
+  <ol>
+    <li>VOXTAGE（1.0.7 以降）を起動します。Chrome は開いたままにします</li>
+    <li>30 秒ほどで自動でつながり、VOXTAGE に「ブラウザの拡張機能 VOXTAGE CUE とつながりました」と出ます</li>
+    <li>セトリの「＋ 曲（URL）」で、YouTube の動画の URL を入れた曲を足します</li>
+    <li>その曲を選ぶとブラウザで動画が開き、VOXTAGE の ▶・停止・キーの［+］［−］で操作できます</li>
+  </ol>
+  <p class="note">ブラウザが「音を出していいか」を止めたときは、VOXTAGE に「YouTube の画面を1回クリック」と出ます。その通りにすると流れます。配信の前に、セトリの ⚙ の「YouTube の曲をまとめて下調べ」で、曲を先に聴かせておけます。</p>
+</section>
+
+<section>
+  <h2>安心して使うために</h2>
+  <ul>
+    <li>つなぐ先は、同じパソコンの中の VOXTAGE だけです。外部のサーバーには何も送りません。</li>
+    <li>覚えるのは、動画ごとのキーとテンポだけです（ブラウザの中）。</li>
+  </ul>
+  <p class="note"><a href="privacy/">プライバシーポリシー</a>／VOXTAGE CUE は Studio九十九 の拡張機能です。YouTube および Google とは関係ありません。</p>
+</section>
+<p class="note"><a href="../">VOXTAGE サポートのトップへ</a></p>
+</div>
+
+<!-- ===== English ===== -->
+<div id="en" lang="en" hidden>
+<h1>Getting VOXTAGE CUE</h1>
+<p class="lead">A free Chrome extension to control YouTube karaoke from your VOXTAGE setlist</p>
+
+<section>
+  <h2>What it does</h2>
+  <ul>
+    <li>Adds a small bar under YouTube videos to change the key (−12 to +12) and tempo (0.50x to 1.50x), remembered per video.</li>
+    <li>With VOXTAGE 1.0.7 or later, songs in your setlist with a YouTube URL are controlled by VOXTAGE's play, stop and key buttons.</li>
+    <li>It listens to the song in advance to find key changes and the BPM, so harmony and echo follow the song.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>1. Install</h2>
+  <a class="get js-store" href="#" hidden>Get VOXTAGE CUE on the Chrome Web Store</a>
+  <p class="soon js-soon">Coming soon to the Chrome Web Store (currently in review)</p>
+  <ol>
+    <li>In Chrome (or Brave / Edge), open the store page with the button above</li>
+    <li>Click "Add to Chrome", then "Add extension"</li>
+    <li>Click the puzzle-piece button at the top right and pin VOXTAGE CUE</li>
+  </ol>
+</section>
+
+<section>
+  <h2>2. Connect to VOXTAGE</h2>
+  <ol>
+    <li>Start VOXTAGE (1.0.7 or later) and keep Chrome open</li>
+    <li>It connects automatically within about 30 seconds, and VOXTAGE shows that it is connected</li>
+    <li>Add a song with a YouTube URL using "+ Song (URL)" in the setlist</li>
+    <li>Select the song: the video opens in the browser, and VOXTAGE's play, stop and key [+] [−] control it</li>
+  </ol>
+  <p class="note">If the browser blocks audio from starting by itself, VOXTAGE asks you to click the YouTube page once. Before streaming, use "Pre-listen to all YouTube songs" in the setlist ⚙ menu.</p>
+</section>
+
+<section>
+  <h2>Privacy</h2>
+  <ul>
+    <li>It only connects to VOXTAGE on your own computer. Nothing is sent to external servers.</li>
+    <li>It only stores the key and tempo for each video, in your browser.</li>
+  </ul>
+  <p class="note"><a href="privacy/">Privacy policy</a> / VOXTAGE CUE is made by Studio Tsukumo and is not affiliated with YouTube or Google.</p>
+</section>
+<p class="note"><a href="../">VOXTAGE support home</a></p>
+</div>
+</main>
+<script>
+  // ★ ストアに載ったら、ここにストアのページの URL を入れるだけでよい（例："https://chromewebstore.google.com/detail/xxxxxxxx"）。
+  //   空のあいだは「近日公開」と出す。
+  const STORE_URL = "";
+  if (/^https:\/\/chromewebstore\.google\.com\/detail\/[^\s"<>]+$/.test(STORE_URL)) {
+    for (const a of document.querySelectorAll(".js-store")) { a.href = STORE_URL; a.hidden = false; }
+    for (const p of document.querySelectorAll(".js-soon")) p.hidden = true;
+  }
+  // 言語：ブラウザが日本語なら日本語、それ以外は英語（BOOTH のコード受け取りページと同じ決まり）。上のリンクで切り替えられる
+  const ja = document.getElementById("ja"), en = document.getElementById("en"), toggle = document.getElementById("toggle");
+  const show = isJa => { ja.hidden = !isJa; en.hidden = isJa; toggle.textContent = isJa ? "English" : "日本語"; document.documentElement.lang = isJa ? "ja" : "en"; };
+  let isJa = !/^(?!ja)/i.test(navigator.language || "ja");
+  show(isJa);
+  toggle.addEventListener("click", e => { e.preventDefault(); isJa = !isJa; show(isJa); });
+</script>
+</body>
+</html>
