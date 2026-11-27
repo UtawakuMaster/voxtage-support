@@ -18,21 +18,25 @@
 <body>
 <main>
 <h1>VOXTAGE CUE プライバシーポリシー</h1>
-<p class="date">最終更新日：2026年11月25日</p>
+<p class="date">最終更新日：2026年11月27日</p>
 <p>VOXTAGE CUE（以下「本拡張機能」）は、Studio九十九 が提供する Google Chrome の拡張機能です。本拡張機能が扱う情報について説明します。</p>
 
 <h2>1. 集める情報</h2>
 <p>本拡張機能は、個人を特定できる情報（名前・メールアドレスなど）を集めません。外部のサーバーへ情報を送ることもありません。</p>
 
 <h2>2. ブラウザの中に保存する情報</h2>
-<p>YouTube の動画ごとに、利用者が選んだキーとテンポを、利用者のブラウザの中（chrome.storage）に保存します。次に同じ動画を開いたときに元に戻すためだけに使います。拡張機能を削除すると、この情報も消えます。</p>
+<p>YouTube の動画ごとに、利用者が選んだキーとテンポを、利用者のブラウザの中（chrome.storage）に保存します。次に同じ動画を開いたときに元に戻すためだけに使います。</p>
+<p>また、同じパソコンの VOXTAGE と一度でもつながったことがあるか（はい・いいえの印1つ）を保存します。VOXTAGE を使っていない方のパソコンで、VOXTAGE を探しに行く回数を減らすためだけに使います。</p>
+<p>VOXTAGE とつないでいる間は、VOXTAGE が操作しているタブがどれかも、ブラウザを閉じるまでのあいだだけ覚えます（chrome.storage.session）。</p>
+<p>どれもブラウザの外には送りません。拡張機能を削除すると、これらの情報も消えます。</p>
 
 <h2>3. 同じパソコンの VOXTAGE とのやり取り</h2>
 <p>利用者が同じパソコンで歌枠用アプリ「VOXTAGE」を起動しているときだけ、本拡張機能はそのアプリとつながります（127.0.0.1。パソコンの外にはつながりません）。</p>
 <ul>
-  <li>VOXTAGE へ送るもの：開いている YouTube の動画の様子（動画の ID・題名・再生位置・長さ・キー・テンポ）と、曲のキーと BPM を調べるための動画の音。</li>
+  <li>VOXTAGE へ送るもの：開いている YouTube の動画の様子（動画の ID・題名・再生中か・再生位置・長さ・キー・テンポ・広告中か・うまく動かなかったときの理由など）と拡張機能の版、曲のキーと BPM を調べるための動画の音。</li>
   <li>VOXTAGE から受け取るもの：動画を開く・再生・停止・キーを変える、などの指示。</li>
   <li>広告が流れている間は、音を送りません。</li>
+  <li>VOXTAGE は、受け取った動画の音を保存しません。音は調べるあいだだけパソコンのメモリに置き、VOXTAGE を閉じると消えます。VOXTAGE が残すのは、調べた結果（BPM とキーの流れ）だけです。</li>
 </ul>
 <p>これらは利用者のパソコンの中だけでやり取りされ、Studio九十九 を含む第三者には送られません。</p>
 
@@ -49,18 +53,22 @@
 
 <h1 lang="en">VOXTAGE CUE Privacy Policy</h1>
 <div lang="en">
-<p class="date">Last updated: November 25, 2026</p>
+<p class="date">Last updated: November 27, 2026</p>
 <p>VOXTAGE CUE ("the extension") is a Google Chrome extension provided by Studio Tsukumo. This page explains how the extension handles information.</p>
 <h2>1. Information we collect</h2>
 <p>The extension does not collect personally identifiable information (such as names or email addresses), and it does not send any information to external servers.</p>
 <h2>2. Information stored in your browser</h2>
-<p>For each YouTube video, the key and tempo you choose are stored in your browser (chrome.storage), only so they can be restored the next time you open the same video. Removing the extension removes this data.</p>
+<p>For each YouTube video, the key and tempo you choose are stored in your browser (chrome.storage), only so they can be restored the next time you open the same video.</p>
+<p>The extension also stores a single yes/no flag recording whether it has ever connected to the VOXTAGE app on the same computer. It is used only to avoid looking for VOXTAGE on computers where it is not used.</p>
+<p>While linked to VOXTAGE, it also remembers which tab VOXTAGE is controlling, only until the browser is closed (chrome.storage.session).</p>
+<p>None of this is sent outside your browser. Removing the extension removes this data.</p>
 <h2>3. Communication with VOXTAGE on the same computer</h2>
 <p>Only while you are running the VOXTAGE singing app on the same computer, the extension connects to it at 127.0.0.1 (never outside your computer).</p>
 <ul>
-  <li>Sent to VOXTAGE: the state of the open YouTube video (video ID, title, position, length, key and tempo), and the video's audio so VOXTAGE can detect the song's key and BPM.</li>
+  <li>Sent to VOXTAGE: the state of the open YouTube video (such as video ID, title, whether it is playing, position, length, key, tempo, whether an ad is showing, and the reason if something did not work), the extension's version, and the video's audio so VOXTAGE can detect the song's key and BPM.</li>
   <li>Received from VOXTAGE: commands such as open a video, play, stop and change the key.</li>
   <li>No audio is sent while ads are playing.</li>
+  <li>VOXTAGE does not save the audio it receives. The audio is kept in memory only while it is analysed and is gone when VOXTAGE closes. VOXTAGE keeps only the results (the BPM and the key changes).</li>
 </ul>
 <p>This exchange stays on your computer and is not sent to any third party, including Studio Tsukumo.</p>
 <h2>4. Sharing</h2>
